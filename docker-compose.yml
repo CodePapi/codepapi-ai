@@ -1,0 +1,82 @@
+# version: '3.8'
+
+# services:
+#   # The AI Engine
+#   ollama:
+#     image: ollama/ollama:latest
+#     container_name: ollama
+#     ports:
+#       - "11434:11434"
+#     volumes:
+#       - ollama_data:/root/.ollama
+#     entrypoint: /bin/sh
+#     command: -c "ollama serve & sleep 10 && ollama pull qwen2.5-coder && wait"
+#     # If you have an NVIDIA GPU, uncomment the lines below for 10x speed
+#     # deploy:
+#     #   resources:
+#     #     reservations:
+#     #       devices:
+#     #         - driver: nvidia
+#     #           count: 1
+#     #           capabilities: [gpu]
+
+#   # Your NestJS API
+#   api:
+#     build: 
+#       context: ./backend
+#       dockerfile: Dockerfile
+#     container_name: nest_api
+#     ports:
+#       - "3000:3000"
+#     environment:
+#       - OLLAMA_URL=http://ollama:11434
+#     depends_on:
+#       - ollama
+
+# volumes:
+#   ollama_data:
+
+
+
+
+
+version: '3.8'
+
+services:
+  # 1. AI Engine
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama 
+    entrypoint: /bin/sh
+    command: -c "ollama serve & sleep 5 && ollama pull qwen2.5-coder:1.5b && wait"
+
+  # 2. NestJS Backend
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: nest_api
+    ports:
+      - "3000:3000"
+    environment:
+      - OLLAMA_URL=http://ollama:11434
+    depends_on:
+      - ollama
+
+  # 3. React Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: react_ui
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  ollama_data:
