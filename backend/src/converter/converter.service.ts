@@ -1,5 +1,5 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { ChatOllama } from '@langchain/ollama';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 
 @Injectable()
 export class ConverterService {
@@ -8,25 +8,29 @@ export class ConverterService {
   constructor() {
     this.model = new ChatOllama({
       baseUrl: process.env.OLLAMA_URL || 'http://localhost:11434',
-      model: 'qwen2.5-coder:1.5b',
+      model: 'phi3:mini',
     });
   }
 
   // --- 1. CODE TRANSLATION ---
-async convertCode(code: string, from: string, to: string) {
-  // Check if "to" is a migration preset
-  const isMigration = to.includes('-') || from.includes('-'); 
-  
-  const prompt = `
+  async convertCode(code: string, from: string, to: string) {
+    // Check if "to" is a migration preset
+    const isMigration = to.includes('-') || from.includes('-');
+
+    const prompt = `
     You are an expert software architect specializing in ${isMigration ? 'code migration' : 'code translation'}.
     Task: Convert the input from ${from} to ${to}.
     
-    ${isMigration ? `
+    ${
+      isMigration
+        ? `
     SPECIFIC INSTRUCTIONS FOR MIGRATION:
     - If moving from Class to Functional components, use React Hooks (useState, useEffect).
     - If moving to TypeScript, add proper interfaces and types.
     - If moving between frameworks (e.g., React to Vue), map lifecycle methods and state management accurately.
-    ` : ''}
+    `
+        : ''
+    }
 
     RULES:
     - Return ONLY raw code.
@@ -72,12 +76,12 @@ async convertCode(code: string, from: string, to: string) {
   private async executeInvoke(prompt: string, key: string) {
     try {
       const response = await this.model.invoke(prompt);
-      return { 
-        success: true, 
-        [key]: response.content 
+      return {
+        success: true,
+        [key]: response.content,
       };
     } catch (error) {
-      console.error(`AI Service Error:`, error);
+      console.error('AI Service Error:', error);
       throw new InternalServerErrorException('Failed to connect to AI engine');
     }
   }

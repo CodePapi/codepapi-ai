@@ -1,5 +1,7 @@
 {
-  "name": "code-converter",
+  "name": "codepapi-ai-frontend",
+  "description": "A frontend for the CodePapi AI tool",
+  "author": "Samuel Egbajie",
   "private": true,
   "version": "0.0.0",
   "type": "module",

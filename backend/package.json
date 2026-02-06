@@ -1,8 +1,8 @@
 {
-  "name": "backend",
+  "name": "codepapi-ai-backend",
+  "description": "A backend for the CodePapi AI tool",
+  "author": "Samuel Egbajie",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
