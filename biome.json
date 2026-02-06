@@ -4,10 +4,7 @@
   "files": {
     "include": ["src", "test"],
     "ignoreUnknown": false,
-    "ignore": [
-      "**/node_modules",
-      "dist/**"
-    ]
+    "ignore": ["**/node_modules", "dist/**", "frontend/src/main.tsx"]
   },
   "formatter": {
     "enabled": true,
