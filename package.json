@@ -1,0 +1,16 @@
+{
+	"name": "codepapi-ai",
+	"private": true,
+	"version": "1.0.0",
+	"scripts": {
+		"dev": "docker compose up",
+    	"dev:build": "docker compose up --build",
+    	"dev:down": "docker compose down",
+		"biome:format": "biome format --write .",
+		"biome:lint": "biome lint .",
+		"biome:fix": "biome check --apply ."
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.5.3"
+	}
+}

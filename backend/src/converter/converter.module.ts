@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { ConverterService } from './converter.service';
 import { ConverterController } from './converter.controller';
+import { ConverterService } from './converter.service';
 
 @Module({
   providers: [ConverterService],
-  controllers: [ConverterController]
+  controllers: [ConverterController],
 })
 export class ConverterModule {}
