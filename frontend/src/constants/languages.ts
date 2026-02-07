@@ -12,9 +12,3 @@ export const LANGUAGES = [
   { id: 'swift', name: 'Swift' },
 ];
 
-export const MIGRATIONS = [
-  { id: 'react-vue', name: 'React to Vue' },
-  { id: 'react-ts', name: 'React JS to React TS' },
-  { id: 'react-class-functional', name: 'React Class to Functional' },
-  { id: 'angular-react', name: 'Angular to React' },
-];

@@ -30,18 +30,10 @@ function App() {
 
   // --- Logic: Syncing & Placeholders ---
   useEffect(() => {
-    const isMigration = sourceLang.includes('-');
-
+    // If switching modes or source language, clear output when appropriate
     if (mode === 'translate') {
-      if (isMigration) {
-        // Auto-assign target language based on migration selection
-        if (sourceLang === 'react-ts') setTargetLang('typescript');
-        else if (sourceLang === 'react-vue') setTargetLang('javascript');
-        else setTargetLang('typescript'); // Default for most modern migrations
-      } else {
-        // If user switches back to a plain language, force them to pick a new target
-        setOutputCode('');
-      }
+      // If user switches languages and there's no selected target, clear output
+      setOutputCode((prev) => (targetLang ? prev : ''));
     }
 
     // Set presentable text when switching modes
@@ -59,12 +51,7 @@ function App() {
   // --- Helpers ---
   const getEditorLanguage = (langId: string) => {
     if (!langId) return 'javascript';
-    if (
-      langId.includes('react') ||
-      langId.includes('vue') ||
-      langId.includes('javascript')
-    )
-      return 'typescript';
+    if (langId === 'javascript' || langId === 'typescript') return 'typescript';
     return langId;
   };
 
@@ -103,7 +90,7 @@ function App() {
   const handleAction = async () => {
     if (!sourceCode.trim() || sourceCode === '// Your code here...') return;
     if (mode === 'translate' && !targetLang) {
-      alert('Please select a target language or framework migration.');
+      alert('Please select a target language.');
       return;
     }
 
@@ -316,7 +303,7 @@ function App() {
               className={isProcessing ? 'opacity-40 pointer-events-none' : ''}
             >
               <LanguageSelector
-                label="Source Language / Framework"
+                label="Source Language"
                 value={sourceLang}
                 onChange={setSourceLang}
               />
@@ -376,7 +363,7 @@ function App() {
                     label="Target Language"
                     value={targetLang}
                     onChange={setTargetLang}
-                    excludeId={sourceLang} // FILTERING: Can't pick the same lang as source
+                    excludeId={sourceLang} 
                   />
                 ) : (
                   <div className="flex flex-col gap-1.5 w-full">

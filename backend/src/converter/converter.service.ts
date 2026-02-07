@@ -14,23 +14,9 @@ export class ConverterService {
 
   // --- 1. CODE TRANSLATION ---
   async convertCode(code: string, from: string, to: string) {
-    // Check if "to" is a migration preset
-    const isMigration = to.includes('-') || from.includes('-');
-
     const prompt = `
-    You are an expert software architect specializing in ${isMigration ? 'code migration' : 'code translation'}.
+    You are an expert software architect specializing in code translation.
     Task: Convert the input from ${from} to ${to}.
-    
-    ${
-      isMigration
-        ? `
-    SPECIFIC INSTRUCTIONS FOR MIGRATION:
-    - If moving from Class to Functional components, use React Hooks (useState, useEffect).
-    - If moving to TypeScript, add proper interfaces and types.
-    - If moving between frameworks (e.g., React to Vue), map lifecycle methods and state management accurately.
-    `
-        : ''
-    }
 
     RULES:
     - Return ONLY raw code.
