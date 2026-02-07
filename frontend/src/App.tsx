@@ -2,6 +2,7 @@ import Editor, { DiffEditor } from '@monaco-editor/react';
 import {
   Bug,
   Check,
+  Clipboard,
   Code2,
   Copy,
   RotateCcw,
@@ -11,6 +12,7 @@ import {
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { fixBugs, reviewCode, translateCode } from './api/client';
+import FileUploader from './components/FileUploader';
 import { LanguageSelector } from './components/LanguageSelector';
 
 type Mode = 'translate' | 'review' | 'fix';
@@ -24,6 +26,7 @@ function App() {
   const [mode, setMode] = useState<Mode>('translate');
   const [isProcessing, setIsProcessing] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   // --- Logic: Syncing & Placeholders ---
   useEffect(() => {
@@ -37,7 +40,6 @@ function App() {
         else setTargetLang('typescript'); // Default for most modern migrations
       } else {
         // If user switches back to a plain language, force them to pick a new target
-        setTargetLang('');
         setOutputCode('');
       }
     }
@@ -71,6 +73,31 @@ function App() {
       .replace(/^```\w*\n/, '')
       .replace(/\n```$/, '')
       .trim();
+  };
+
+  // --- Input helpers (upload / paste / clear) ---
+  const handleFileRead = (content: string, _filename?: string) => {
+    setSourceCode(content);
+    setOutputCode('');
+  };
+
+  const handlePasteFromClipboard = async () => {
+    try {
+      const text = await navigator.clipboard.readText();
+      if (!text) {
+        alert('Clipboard is empty');
+        return;
+      }
+      setSourceCode(text);
+      setOutputCode('');
+    } catch (err) {
+      alert('Unable to read clipboard');
+    }
+  };
+
+  const handleClearInput = () => {
+    setSourceCode('// Your code here...');
+    setOutputCode('');
   };
 
   const handleAction = async () => {
@@ -112,7 +139,7 @@ function App() {
       className={`min-h-screen bg-[#0b0e14] text-slate-200 font-sans antialiased ${isProcessing ? 'cursor-wait' : ''}`}
     >
       {/* Navbar */}
-      <nav className="border-b border-slate-800 px-6 py-4 flex justify-between items-center bg-[#0b0e14]/80 backdrop-blur-md sticky top-0 z-50">
+      <nav className="border-b border-slate-800 px-4 sm:px-6 py-3 sm:py-4 flex justify-between items-center bg-[#0b0e14]/80 backdrop-blur-md sticky top-0 z-50">
         <div className="flex items-center gap-2">
           <div className="bg-blue-600 p-1.5 rounded-lg">
             <Zap size={20} className="fill-white text-white" />
@@ -123,31 +150,71 @@ function App() {
         </div>
 
         {/* Mode Switcher */}
-        <div
-          className={`flex bg-slate-900 border border-slate-800 p-1 rounded-xl transition-all ${isProcessing ? 'opacity-40 pointer-events-none scale-95' : ''}`}
-        >
-          {[
-            { id: 'translate', label: 'Translate', icon: <Code2 size={16} /> },
-            { id: 'review', label: 'Review', icon: <Search size={16} /> },
-            { id: 'fix', label: 'Check Bugs', icon: <Bug size={16} /> },
-          ].map((m) => (
-            <button
-              type="button"
-              key={m.id}
-              disabled={isProcessing}
-              onClick={() => setMode(m.id as Mode)}
-              className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
-                mode === m.id
-                  ? 'bg-slate-800 text-blue-400 shadow-sm'
-                  : 'text-slate-400 hover:text-slate-200'
-              }`}
-            >
-              {m.icon} {m.label}
-            </button>
-          ))}
+        <div className="hidden sm:flex">
+          <div
+            className={`flex bg-slate-900 border border-slate-800 p-1 rounded-xl transition-all ${isProcessing ? 'opacity-40 pointer-events-none scale-95' : ''}`}
+          >
+            {[
+              {
+                id: 'translate',
+                label: 'Translate',
+                icon: <Code2 size={16} />,
+              },
+              { id: 'review', label: 'Review', icon: <Search size={16} /> },
+              { id: 'fix', label: 'Check Bugs', icon: <Bug size={16} /> },
+            ].map((m) => (
+              <button
+                type="button"
+                key={m.id}
+                disabled={isProcessing}
+                onClick={() => setMode(m.id as Mode)}
+                className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                  mode === m.id
+                    ? 'bg-slate-800 text-blue-400 shadow-sm'
+                    : 'text-slate-400 hover:text-slate-200'
+                }`}
+              >
+                {m.icon} {m.label}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <div className="flex gap-4">
+        {/* Mobile menu toggle */}
+        <button
+          type="button"
+          className="sm:hidden p-2 rounded-md text-slate-300 hover:bg-slate-800"
+          onClick={() => setMobileNavOpen((v) => !v)}
+          aria-label="Toggle menu"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            role="img"
+          >
+            <title>{mobileNavOpen ? 'Close menu' : 'Open menu'}</title>
+            {mobileNavOpen ? (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            ) : (
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            )}
+          </svg>
+        </button>
+
+        <div className="hidden sm:flex gap-4">
           <button
             type="button"
             disabled={isProcessing}
@@ -182,6 +249,58 @@ function App() {
         </div>
       </nav>
 
+      {/* Mobile nav dropdown */}
+      {mobileNavOpen && (
+        <div className="sm:hidden bg-[#0b0e14]/95 border-b border-slate-800 px-4 py-3">
+          <div className="flex flex-col gap-3">
+            <div className="flex bg-slate-900 border border-slate-800 p-1 rounded-xl">
+              {[
+                { id: 'translate', label: 'Translate' },
+                { id: 'review', label: 'Review' },
+                { id: 'fix', label: 'Check Bugs' },
+              ].map((m) => (
+                <button
+                  key={m.id}
+                  type="button"
+                  onClick={() => {
+                    setMode(m.id as Mode);
+                    setMobileNavOpen(false);
+                  }}
+                  className={`flex-1 text-sm py-2 rounded-md ${mode === m.id ? 'bg-slate-800 text-blue-400' : 'text-slate-300'}`}
+                >
+                  {m.label}
+                </button>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setSourceCode('// Your code here...');
+                  setOutputCode('');
+                  setMobileNavOpen(false);
+                }}
+                className="flex-1 py-2 rounded-md text-sm text-slate-300 hover:bg-slate-800"
+              >
+                Reset
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  handleAction();
+                  setMobileNavOpen(false);
+                }}
+                disabled={isProcessing || (mode === 'translate' && !targetLang)}
+                className={`flex-1 py-2 rounded-md text-sm font-bold ${isProcessing || (mode === 'translate' && !targetLang) ? 'bg-slate-700 opacity-50' : 'bg-blue-600'}`}
+              >
+                Run AI
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <main className="p-6 max-w-[1600px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[calc(100vh-140px)]">
           {/* Input Panel */}
@@ -194,6 +313,33 @@ function App() {
                 value={sourceLang}
                 onChange={setSourceLang}
               />
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="flex-1" />
+              <div className="flex items-center gap-2">
+                <FileUploader
+                  onFileRead={handleFileRead}
+                  disabled={isProcessing}
+                />
+                <button
+                  type="button"
+                  onClick={handlePasteFromClipboard}
+                  disabled={isProcessing}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-slate-800 text-sm"
+                  title="Paste from clipboard"
+                >
+                  <Clipboard size={14} /> Paste
+                </button>
+                <button
+                  type="button"
+                  onClick={handleClearInput}
+                  disabled={isProcessing}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-slate-800 text-sm"
+                  title="Clear input"
+                >
+                  Clear
+                </button>
+              </div>
             </div>
             <div className="flex-1 rounded-xl overflow-hidden border border-slate-800 bg-[#1e1e1e]">
               <Editor

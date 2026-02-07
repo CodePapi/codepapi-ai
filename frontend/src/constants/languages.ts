@@ -17,5 +17,4 @@ export const MIGRATIONS = [
   { id: 'react-ts', name: 'React JS to React TS' },
   { id: 'react-class-functional', name: 'React Class to Functional' },
   { id: 'angular-react', name: 'Angular to React' },
-  { id: 'jquery-vanilla', name: 'jQuery to Vanilla JS' },
 ];
