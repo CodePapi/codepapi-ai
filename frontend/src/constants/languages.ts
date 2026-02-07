@@ -11,4 +11,3 @@ export const LANGUAGES = [
   { id: 'ruby', name: 'Ruby' },
   { id: 'swift', name: 'Swift' },
 ];
-

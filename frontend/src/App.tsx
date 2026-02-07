@@ -46,7 +46,7 @@ function App() {
     } else if (mode === 'translate' && !targetLang) {
       setOutputCode('');
     }
-  }, [sourceLang, mode, targetLang]);
+  }, [mode, targetLang]);
 
   // --- Helpers ---
   const getEditorLanguage = (langId: string) => {
@@ -363,7 +363,7 @@ function App() {
                     label="Target Language"
                     value={targetLang}
                     onChange={setTargetLang}
-                    excludeId={sourceLang} 
+                    excludeId={sourceLang}
                   />
                 ) : (
                   <div className="flex flex-col gap-1.5 w-full">
