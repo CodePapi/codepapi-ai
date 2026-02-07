@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react';
+import { UploadCloud } from 'lucide-react';
+import { useRef, useState } from 'react';
 
 interface Props {
   onFileRead: (content: string, filename?: string) => void;
@@ -56,27 +57,12 @@ const FileUploader = ({ onFileRead, disabled }: Props) => {
         }}
         disabled={disabled}
         className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-colors text-sm font-medium ${
-          disabled ? 'opacity-50 pointer-events-none' : 'hover:bg-slate-800'
+          disabled
+            ? 'opacity-50 pointer-events-none'
+            : 'hover:bg-slate-800 cursor-pointer'
         } ${dragOver ? 'bg-slate-800' : ''}`}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={2}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="text-slate-300"
-          role="img"
-        >
-          <title>Upload file</title>
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-          <polyline points="7 10 12 5 17 10" />
-          <line x1="12" y1="5" x2="12" y2="19" />
-        </svg>
+        <UploadCloud size={16} className="text-slate-300" role="img" />
         <span>{disabled ? 'Upload (disabled)' : 'Upload / Drop'}</span>
       </button>
     </div>

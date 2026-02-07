@@ -21,8 +21,8 @@ function App() {
   // --- State ---
   const [sourceCode, setSourceCode] = useState('// Your code here...');
   const [outputCode, setOutputCode] = useState('');
-  const [sourceLang, setSourceLang] = useState('typescript');
-  const [targetLang, setTargetLang] = useState(''); // Default to empty/placeholder
+  const [sourceLang, setSourceLang] = useState('javascript');
+  const [targetLang, setTargetLang] = useState('');
   const [mode, setMode] = useState<Mode>('translate');
   const [isProcessing, setIsProcessing] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -116,16 +116,23 @@ function App() {
       } | null = null;
       if (mode === 'translate') {
         result = await translateCode(sourceCode, sourceLang, targetLang);
-        setOutputCode(stripCodeBlockFormatting(result.translatedCode));
+        setOutputCode(
+          stripCodeBlockFormatting(
+            result?.translatedCode || 'No translation received.',
+          ),
+        );
       } else if (mode === 'review') {
         result = await reviewCode(sourceCode, sourceLang);
-        setOutputCode(result.reviewContent);
+        setOutputCode(result?.reviewContent || 'No review content received.');
       } else if (mode === 'fix') {
         result = await fixBugs(sourceCode, sourceLang);
-        setOutputCode(stripCodeBlockFormatting(result.fixedCode));
+        setOutputCode(
+          stripCodeBlockFormatting(
+            result?.fixedCode || 'No fixed code received.',
+          ),
+        );
       }
     } catch (error) {
-      console.error('API Error:', error);
       alert(
         'AI Engine is currently unavailable. Ensure Docker containers are running.',
       );
@@ -171,7 +178,7 @@ function App() {
                 className={`flex items-center gap-2 px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
                   mode === m.id
                     ? 'bg-slate-800 text-blue-400 shadow-sm'
-                    : 'text-slate-400 hover:text-slate-200'
+                    : 'text-slate-400 hover:text-slate-200 cursor-pointer'
                 }`}
               >
                 {m.icon} {m.label}
@@ -183,7 +190,7 @@ function App() {
         {/* Mobile menu toggle */}
         <button
           type="button"
-          className="sm:hidden p-2 rounded-md text-slate-300 hover:bg-slate-800"
+          className="sm:hidden p-2 rounded-md text-slate-300 hover:bg-slate-800 cursor-pointer"
           onClick={() => setMobileNavOpen((v) => !v)}
           aria-label="Toggle menu"
         >
@@ -222,7 +229,7 @@ function App() {
               setSourceCode('// Your code here...');
               setOutputCode('');
             }}
-            className="p-2 hover:bg-slate-800 rounded-lg transition-colors text-slate-400 disabled:opacity-20"
+            className="p-2 hover:bg-slate-800 rounded-lg transition-colors text-slate-400 disabled:opacity-20 cursor-pointer disabled:cursor-not-allowed"
             title="Reset All"
           >
             <RotateCcw size={20} />
@@ -233,7 +240,7 @@ function App() {
             className={`flex items-center gap-2 px-6 py-2 rounded-full font-bold transition-all ${
               isProcessing || (mode === 'translate' && !targetLang)
                 ? 'bg-slate-700 opacity-50 cursor-not-allowed'
-                : 'bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-900/20 active:scale-95'
+                : 'bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-900/20 active:scale-95 cursor-pointer'
             }`}
             onClick={handleAction}
           >
@@ -266,7 +273,7 @@ function App() {
                     setMode(m.id as Mode);
                     setMobileNavOpen(false);
                   }}
-                  className={`flex-1 text-sm py-2 rounded-md ${mode === m.id ? 'bg-slate-800 text-blue-400' : 'text-slate-300'}`}
+                  className={`flex-1 text-sm py-2 rounded-md ${mode === m.id ? 'bg-slate-800 text-blue-400' : 'text-slate-300'} cursor-pointer`}
                 >
                   {m.label}
                 </button>
@@ -281,7 +288,7 @@ function App() {
                   setOutputCode('');
                   setMobileNavOpen(false);
                 }}
-                className="flex-1 py-2 rounded-md text-sm text-slate-300 hover:bg-slate-800"
+                className="flex-1 py-2 rounded-md text-sm text-slate-300 hover:bg-slate-800 cursor-pointer"
               >
                 Reset
               </button>
@@ -292,7 +299,7 @@ function App() {
                   setMobileNavOpen(false);
                 }}
                 disabled={isProcessing || (mode === 'translate' && !targetLang)}
-                className={`flex-1 py-2 rounded-md text-sm font-bold ${isProcessing || (mode === 'translate' && !targetLang) ? 'bg-slate-700 opacity-50' : 'bg-blue-600'}`}
+                className={`flex-1 py-2 rounded-md text-sm font-bold ${isProcessing || (mode === 'translate' && !targetLang) ? 'bg-slate-700 opacity-50' : 'bg-blue-600 cursor-pointer'}`}
               >
                 Run AI
               </button>
@@ -325,7 +332,7 @@ function App() {
                   type="button"
                   onClick={handlePasteFromClipboard}
                   disabled={isProcessing}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-slate-800 text-sm"
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-slate-800 text-sm cursor-pointer disabled:cursor-not-allowed"
                   title="Paste from clipboard"
                 >
                   <Clipboard size={14} /> Paste
@@ -334,7 +341,7 @@ function App() {
                   type="button"
                   onClick={handleClearInput}
                   disabled={isProcessing}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-slate-800 text-sm"
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg hover:bg-slate-800 text-sm cursor-pointer disabled:cursor-not-allowed"
                   title="Clear input"
                 >
                   Clear
@@ -393,7 +400,7 @@ function App() {
                   setCopied(true);
                   setTimeout(() => setCopied(false), 2000);
                 }}
-                className="mb-1 p-2.5 hover:bg-slate-800 rounded-lg transition-all text-slate-400 flex items-center gap-2 text-sm disabled:opacity-10"
+                className="mb-1 p-2.5 hover:bg-slate-800 rounded-lg transition-all text-slate-400 flex items-center gap-2 text-sm disabled:opacity-10 cursor-pointer disabled:cursor-not-allowed"
               >
                 {copied ? (
                   <Check size={16} className="text-green-500" />
@@ -443,6 +450,7 @@ function App() {
                       ? getEditorLanguage(targetLang)
                       : 'markdown'
                   }
+                  defaultLanguage="markdown"
                   value={outputCode}
                   options={{
                     readOnly: true,
