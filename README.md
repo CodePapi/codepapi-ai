@@ -1,4 +1,5 @@
 # CodePapi AI ⚡
+<img width="2960" height="1532" alt="image" src="https://github.com/user-attachments/assets/188fe9c2-60eb-4a0a-a3bb-39ad06186141" />
 
 > **A local AI-powered code companion.** Keep your code on your machine while exploring code translation, reviews, and debugging with LLMs. A learning project exploring local AI integration in developer workflows.
 
