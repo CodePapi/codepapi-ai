@@ -46,7 +46,7 @@ Get AI-driven analysis of your code covering:
 Fix bugs with confidence. The **Diff View** shows exactly what the AI changed, side-by-side comparison so you understand every modification before accepting.
 
 #### 🔒 Air-Gapped Privacy
-Powered by **Phi-3 Mini** (2.3GB model) running locally through **Ollama**. Your code never touches the internet.
+Powered by **Qwen2.5-Coder** (1.5GB model) running locally through **Ollama**. Your code never touches the internet.
 
 ---
 
@@ -69,17 +69,21 @@ cd codepapi-ai
 docker-compose up -d
 ```
 
-That's it! Docker will automatically:
-1. Pull and run the Ollama AI engine
-2. Download the Phi-3 Mini model (first run only, ~2.3GB)
-3. Start the NestJS backend API
-4. Launch the React frontend UI
+### First Launch Setup
 
-### First Launch
+> ⚠️ **Important:** The first startup requires downloading AI models. Ensure you have a stable internet connection.
 
-> ⚠️ **Note:** The first startup will download the Phi-3 Mini model (~2.3GB). This is a one-time operation. Ensure you have a stable internet connection.
+After starting the containers, pull the required models:
 
-Once the containers are running:
+```bash
+# Pull Qwen2.5 Coder (primary model, ~1.5GB)
+docker exec ollama ollama pull qwen2.5-coder:1.5b
+
+# Pull Phi-3 Mini (optional, ~2.3GB alternative model)
+docker exec ollama ollama pull phi3:mini
+```
+
+Once the models are downloaded and containers are running:
 - **🖥️ Frontend:** Open http://localhost in your browser
 - **🔌 API:** Backend runs at http://localhost:3000
 - **🤖 AI Engine:** Ollama API available at http://localhost:11434
@@ -103,7 +107,7 @@ Once the containers are running:
 
 | Component | Technology | Purpose |
 | --- | --- | --- |
-| **AI Engine** | [Ollama](https://ollama.ai/) + Phi-3 Mini | Local LLM inference |
+| **AI Engine** | [Ollama](https://ollama.ai/) + Qwen2.5-Coder | Local LLM inference |
 | **Orchestration** | LangChain.js | AI workflow management |
 | **Backend** | NestJS (Node.js) | REST API & business logic |
 | **Frontend** | React + TailwindCSS + Lucide | Modern, responsive UI |
@@ -255,7 +259,7 @@ Before submitting a PR, ensure:
 While formal unit tests are encouraged:
 - **Manual testing** is acceptable for UI changes
 - **Test in Docker** to ensure consistency across environments
-- **Test with the Phi-3 Mini model** (not a different LLM)
+- **Test with the Qwen2.5-Coder model** (not a different LLM)
 - **Document test steps** in your PR
 
 ### Review Process
@@ -345,7 +349,7 @@ See `frontend/README.md` for detailed customization guides.
 
 - **Docker & Docker Compose** (recommended) or
 - **Node.js 18+** + **Ollama** (for local development)
-- **Minimum 4GB RAM** recommended (Phi-3 Mini model size)
+- **Minimum 2GB RAM** recommended (Qwen2.5-Coder model size)
 - **Stable internet** for initial model download
 - **macOS, Linux, or Windows** (with WSL2)
 

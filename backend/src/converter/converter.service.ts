@@ -8,7 +8,14 @@ export class ConverterService {
   constructor() {
     this.model = new ChatOllama({
       baseUrl: process.env.OLLAMA_URL || 'http://localhost:11434',
-      model: 'phi3:mini',
+      model: 'qwen2.5-coder:1.5b', 
+      temperature: 0.1, 
+      numPredict: 2048, 
+      numCtx: 4096,
+      topK: 40, 
+      topP: 0.9, 
+      repeatPenalty: 1.1, 
+ 
     });
   }
 

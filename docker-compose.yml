@@ -9,8 +9,7 @@ services:
       - "11434:11434"
     volumes:
       - ollama_data:/root/.ollama 
-    entrypoint: /bin/sh
-    command: -c "ollama serve & sleep 5 && ollama pull phi3:mini && wait"
+   
 
   # 2. NestJS Backend
   backend:
@@ -34,7 +33,7 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - backend 
+      - backend
 
 volumes:
   ollama_data:
