@@ -1,4 +1,4 @@
-import { LANGUAGES, MIGRATIONS } from '../constants/languages';
+import { LANGUAGES } from '../constants/languages';
 
 interface Props {
   value: string;
@@ -33,21 +33,11 @@ export const LanguageSelector = ({
     >
       <option value="">Select an option...</option>
 
-      <optgroup label="Languages">
-        {LANGUAGES.filter((l) => l.id !== excludeId).map((lang) => (
-          <option key={lang.id} value={lang.id}>
-            {lang.name}
-          </option>
-        ))}
-      </optgroup>
-
-      <optgroup label="Framework Migrations">
-        {MIGRATIONS.filter((m) => m.id !== excludeId).map((mig) => (
-          <option key={mig.id} value={mig.id}>
-            {mig.name}
-          </option>
-        ))}
-      </optgroup>
+      {LANGUAGES.filter((l) => l.id !== excludeId).map((lang) => (
+        <option key={lang.id} value={lang.id}>
+          {lang.name}
+        </option>
+      ))}
     </select>
   </div>
 );

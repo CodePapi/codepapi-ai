@@ -8,29 +8,22 @@ export class ConverterService {
   constructor() {
     this.model = new ChatOllama({
       baseUrl: process.env.OLLAMA_URL || 'http://localhost:11434',
-      model: 'phi3:mini',
+      model: 'qwen2.5-coder:1.5b', 
+      temperature: 0.1, 
+      numPredict: 2048, 
+      numCtx: 4096,
+      topK: 40, 
+      topP: 0.9, 
+      repeatPenalty: 1.1, 
+ 
     });
   }
 
   // --- 1. CODE TRANSLATION ---
   async convertCode(code: string, from: string, to: string) {
-    // Check if "to" is a migration preset
-    const isMigration = to.includes('-') || from.includes('-');
-
     const prompt = `
-    You are an expert software architect specializing in ${isMigration ? 'code migration' : 'code translation'}.
+    You are an expert software architect specializing in code translation.
     Task: Convert the input from ${from} to ${to}.
-    
-    ${
-      isMigration
-        ? `
-    SPECIFIC INSTRUCTIONS FOR MIGRATION:
-    - If moving from Class to Functional components, use React Hooks (useState, useEffect).
-    - If moving to TypeScript, add proper interfaces and types.
-    - If moving between frameworks (e.g., React to Vue), map lifecycle methods and state management accurately.
-    `
-        : ''
-    }
 
     RULES:
     - Return ONLY raw code.
