@@ -158,18 +158,6 @@ codepapi-ai/
 
 ---
 
-## 📋 Code of Conduct
-
-We are committed to providing a welcoming and inclusive environment for all contributors. Please read and follow our [Code of Conduct](./CODE_OF_CONDUCT.md):
-
-- **Respect:** Treat all community members with respect and dignity
-- **Inclusion:** Welcome contributors of all backgrounds and experience levels
-- **Professionalism:** Keep discussions constructive and focused on the project
-- **Accountability:** If you witness or experience misconduct, report it responsibly
-
-Violations will not be tolerated and may result in removal from the project.
-
----
 
 ## 🤝 Contributing Guidelines
 
@@ -194,7 +182,6 @@ As an experimental AI project, CodePapi AI follows responsible practices:
 ### Transparency
 - **Open source:** Full code inspection available
 - **Clear limitations:** We're honest about what works and what doesn't
-- **No magic:** It's an AI assistant, not a replacement for human judgment
 
 ### Use Responsibly
 - Review all AI suggestions before implementing

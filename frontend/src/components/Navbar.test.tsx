@@ -52,8 +52,7 @@ describe('Navbar Component', () => {
       const { rerender } = render(
         <Navbar {...defaultProps} mobileNavOpen={false} />,
       );
-      // We use queryAllByText because "Translate" exists in the hidden desktop nav too
-      // The mobile-specific reset button is a good indicator
+
       expect(screen.queryByText('Reset')).toBeNull();
 
       rerender(<Navbar {...defaultProps} mobileNavOpen={true} />);

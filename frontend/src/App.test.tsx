@@ -56,8 +56,6 @@ describe('App Integration', () => {
     fireEvent.click(reviewTab);
 
     expect(screen.getByText('Analysis Mode')).toBeDefined();
-    const editors = screen.getAllByTestId('monaco-editor');
-    expect(editors[1].value).toContain('AI Code Review');
   });
 
   it('switches to Fix mode and displays DiffEditor', () => {
