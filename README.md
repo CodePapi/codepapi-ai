@@ -224,7 +224,7 @@ Found a bug? Have a cool idea? Just want to chat about it?
 
 ## 🚨 Security
 
-Found a security vulnerability? Please email [security@example.com] with:
+Found a security vulnerability? Please email [oshiesam@gmail.com] with:
 - Description of the issue
 - Steps to reproduce
 - Potential impact
