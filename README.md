@@ -1,52 +1,49 @@
 # CodePapi AI ⚡
 
-> **Transform your code instantly with local AI power.** No cloud, no data leaks—just blazing-fast code translation, migration, and debugging on your machine.
+> **A local AI-powered code companion.** Keep your code on your machine while exploring code translation, reviews, and debugging with LLMs. A learning project exploring local AI integration in developer workflows.
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Status](https://img.shields.io/badge/status-experimental-yellow.svg)
 ![Ollama](https://img.shields.io/badge/AI-Ollama-orange.svg)
 ![React](https://img.shields.io/badge/Frontend-React-61DAFB.svg)
 ![NestJS](https://img.shields.io/badge/Backend-NestJS-E0234E.svg)
-![Biome](https://img.shields.io/badge/Linter-Biome-60a5fa.svg)
 
 ---
 
 ## What is CodePapi AI?
 
-CodePapi AI is a professional, privacy-focused developer tool that brings the power of Large Language Models (LLMs) directly to your local development workflow. Whether you're translating code between languages, migrating frameworks, reviewing for security issues, or debugging complex logic—all your code stays on your machine.
+CodePapi AI is an experimental, open-source project that brings Large Language Models (LLMs) to your local development environment. Translate code between languages, get AI-powered code reviews, and explore debugging workflows—all without sending your code to external services.
+
+**Note:** This is a hobby/learning project. While functional, it's not optimized for production use. Performance depends heavily on your hardware and model choice. Expect AI responses to take 10-60+ seconds depending on code size and hardware.
 
 ### Why CodePapi AI?
 
-✅ **100% Private** — Your code never leaves your machine  
-✅ **Lightning Fast** — Runs locally on your hardware  
-✅ **Free** — MIT licensed, fully open-source  
-✅ **Extensible** — Add languages, frameworks, and custom prompts easily  
+✅ **Private** — Your code stays on your machine (no cloud uploads)  
+✅ **Open-Source** — Inspect the full codebase  
+✅ **Free** — MIT licensed, no subscriptions  
+✅ **Learning Tool** — Explore local LLM integration in practice  
 
 ---
 
-## ✨ Core Features
+## ✨ Features
 
-#### 🔄 Smart Code Translation
-Effortlessly convert code between 10+ languages including JavaScript, TypeScript, Python, Go, Rust, Java, and more. The system is flexible enough to support any language you add.
+#### 🔄 Code Translation
+Convert code between supported languages: JavaScript, TypeScript, Python, Go, Rust, Java, C++, PHP, Ruby, Swift, and C#. Quality depends on model accuracy and code complexity.
 
-#### 🚀 Framework Migration Engine
-Pre-built, expert-level migration presets for common transformations:
-- React Class Components → React Functional Components (with Hooks)
-- JavaScript → TypeScript
-- CSS → Tailwind CSS
-- React → Vue.js
+#### 🔍 Code Review
+Get AI-generated feedback on:
+- Performance optimization ideas
+- Potential security issues
+- Code quality observations
+- Best practice suggestions
 
-#### 🔍 Deep Code Review
-Get AI-driven analysis of your code covering:
-- Performance optimization opportunities
-- Security vulnerabilities
-- Best practice violations
-- Code quality improvements
+**Note:** AI suggestions should be reviewed carefully and aren't a substitute for human code review.
 
-#### 🐞 Interactive Bug Fixer
-Fix bugs with confidence. The **Diff View** shows exactly what the AI changed, side-by-side comparison so you understand every modification before accepting.
+#### 🐞 Bug Detection
+The **Diff View** shows AI-suggested fixes side-by-side with original code. Always test fixes before committing.
 
-#### 🔒 Air-Gapped Privacy
-Powered by **Qwen2.5-Coder** (1.5GB model) running locally through **Ollama**. Your code never touches the internet.
+#### 🔒 Local Privacy
+Code processing happens locally using Qwen2.5-Coder via Ollama—nothing leaves your machine.
 
 ---
 
@@ -71,17 +68,19 @@ docker-compose up -d
 
 ### First Launch Setup
 
-> ⚠️ **Important:** The first startup requires downloading AI models. Ensure you have a stable internet connection.
+> ⚠️ **First Run:** The first startup downloads the AI model (~1.5GB). Ensure stable internet and available disk space.
 
-After starting the containers, pull the required models:
+After starting the containers, pull the required model:
 
 ```bash
-# Pull Qwen2.5 Coder (primary model, ~1.5GB)
 docker exec ollama ollama pull qwen2.5-coder:1.5b
-
-# Pull Phi-3 Mini (optional, ~2.3GB alternative model)
-docker exec ollama ollama pull phi3:mini
 ```
+
+**Initial Request Times:** Expect 10-90 seconds for initial responses depending on:
+- Your CPU/GPU specs
+- Code size
+- Available system memory
+- Background processes
 
 Once the models are downloaded and containers are running:
 - **🖥️ Frontend:** Open http://localhost in your browser
@@ -92,14 +91,19 @@ Once the models are downloaded and containers are running:
 
 ## 💻 How to Use
 
-1. **Paste or type your code** into the left editor
-2. **Select a source language/framework** from the dropdown
-3. **Choose your action:**
+1. Paste or type code into the left editor
+2. Select a source language
+3. Choose an action:
    - **Translate:** Pick a target language
-   - **Review:** Get AI analysis (no target needed)
-   - **Check Bugs:** See a diff view of fixes
-4. **Click "Run AI"** and watch the magic happen
-5. **Copy the result** or download your transformed code
+   - **Review:** Get feedback on code
+   - **Check Bugs:** See suggested fixes
+4. Click "Run AI" and wait for results
+5. Copy or review the output
+
+**Tips:**
+- Smaller code snippets get faster responses
+- Review AI suggestions before using them in production
+- Results vary based on code complexity and quality
 
 ---
 
@@ -120,13 +124,13 @@ Once the models are downloaded and containers are running:
 
 ### Adding New Languages
 
-Want to support more programming languages or migration presets? It's easy!
+Want to support more programming languages? It's easy!
 
 See the **[Frontend Documentation](./frontend/README.md)** for detailed instructions on adding languages to `frontend/src/constants/languages.ts`.
 
 ### Code Quality
 
-We use **Biome** for lightning-fast linting and formatting. Before submitting a PR, run:
+We use **Biome** for linting and formatting. Before submitting a PR, run:
 
 ```bash
 npm run biome:lint    # Check for issues
@@ -140,7 +144,7 @@ codepapi-ai/
 ├── backend/              # NestJS API server
 │   └── src/converter/   # Code conversion logic
 ├── frontend/            # React UI application
-│   └── src/constants/   # Language & migration definitions
+│   └── src/constants/   # Language definitions
 ├── docker-compose.yml   # Full stack orchestration
 └── README.md           # This file
 ```
@@ -162,7 +166,13 @@ Violations will not be tolerated and may result in removal from the project.
 
 ## 🤝 Contributing Guidelines
 
-We welcome contributions from the community! Whether it's bug fixes, features, documentation, or translations, your help makes CodePapi AI better.
+We welcome contributions! This is a learning/hobby project, so contributions can range from bug fixes and feature ideas to documentation and testing.
+
+### Important Notes
+
+- **This is experimental code.** Don't expect production-grade stability
+- **Limitations are intentional** — helps us learn and improve
+- **AI suggestions need review** — this tool augments, not replaces, human developers
 
 ### Getting Started
 
@@ -259,7 +269,7 @@ Before submitting a PR, ensure:
 While formal unit tests are encouraged:
 - **Manual testing** is acceptable for UI changes
 - **Test in Docker** to ensure consistency across environments
-- **Test with the Qwen2.5-Coder model** (not a different LLM)
+- **Test with the Qwen2.5-Coder model**
 - **Document test steps** in your PR
 
 ### Review Process
@@ -276,10 +286,10 @@ While formal unit tests are encouraged:
 - 🧪 **Testing:** Test coverage and edge cases
 - 📚 **Documentation:** Guides, tutorials, examples
 - 🐛 **Bug fixes:** Active issues on GitHub
-- ✨ **Features:** Language support, migration presets, new modes
+- ✨ **Features:** Language support, new modes
 - 🎨 **UI/UX:** Design improvements, accessibility
 
-See the [Issues page](https://github.com/yourusername/codepapi-ai/issues) for tasks labeled `good first issue` and `help wanted`.
+See the [Issues page](https://github.com/codepapi/codepapi-ai/issues) for tasks labeled `good first issue` and `help wanted`.
 
 ### Recognition
 
@@ -291,41 +301,36 @@ See the [Issues page](https://github.com/yourusername/codepapi-ai/issues) for ta
 
 ## 🤖 Responsible AI Ethics
 
-As an AI-powered tool, CodePapi AI follows these ethical principles:
+As an experimental AI project, CodePapi AI follows responsible practices:
 
-### Privacy First
-- **No telemetry:** We don't track usage or collect analytics
-- **Local processing:** All code processing happens on your machine
-- **No training data:** Your code is never used to train or improve models
-- **GDPR compliant:** Full control over your data
+### Privacy
+- **No telemetry:** We don't collect usage analytics
+- **Local processing:** All code stays on your machine
+- **No training:** Your code never trains models
 
 ### Transparency
-- **Open source:** Full code transparency — inspect everything
-- **Model disclosure:** We explicitly state which LLM is used (Phi-3 Mini)
-- **Limitations:** We're honest about what the AI can and cannot do
-- **Attribution:** AI improvements are documented and credited
+- **Open source:** Full code inspection available
+- **Clear limitations:** We're honest about what works and what doesn't
+- **No magic:** It's an AI assistant, not a replacement for human judgment
 
-### Responsible Use Guidelines
-
-**Do:**
-- ✅ Use CodePapi AI for legitimate code improvement
-- ✅ Review AI suggestions before implementing
-- ✅ Report security issues responsibly
-- ✅ Contribute improvements back to the community
-
-**Don't:**
-- ❌ Use for malicious code generation
-- ❌ Bypass security reviews using AI
-- ❌ Rely solely on AI without code review
-- ❌ Claim AI-generated code as entirely your own without attribution
-
-### Security Considerations
-- Always review code generated by AI before committing
-- Run security scanners on translated/migrated code
-- Test thoroughly in safe environments first
-- Report any security concerns to [security@example.com]
+### Use Responsibly
+- Review all AI suggestions before implementing
+- Don't rely solely on AI output for security-critical code
+- Test thoroughly in your environment
+- Report security issues privately
 
 ---
+
+## 🚨 Limitations & Known Issues
+
+This is an experimental project with real limitations:
+
+- **Speed:** Not fast. Responses take 10-90+ seconds per request
+- **Quality:** AI output varies. Some translations work well, others need manual fixes
+- **Hardware-dependent:** Performance heavily depends on your CPU/GPU and available RAM
+- **Model limitations:** Qwen2.5-Coder is a smaller model; results aren't comparable to larger proprietary models
+- **Error handling:** Limited error checking and validation
+- **Production use:** Not suitable for mission-critical workflows without thorough testing
 
 ## 🚨 Reporting Issues & Security
 
@@ -371,16 +376,16 @@ Distributed under the **MIT License**. See [LICENSE](./LICENSE) for details.
 
 ## 💬 Support
 
-- **Issues:** Report bugs on [GitHub Issues](https://github.com/yourusername/codepapi-ai/issues)
-- **Discussions:** Ask questions in [GitHub Discussions](https://github.com/yourusername/codepapi-ai/discussions)
+- **Issues:** Report bugs on [GitHub Issues](https://github.com/codepapi/codepapi-ai/issues)
+- **Discussions:** Ask questions in [GitHub Discussions](https://github.com/codepapi/codepapi-ai/discussions)
 - **Docs:** Full documentation in [README files](./frontend/README.md)
 
 ---
 
 <div align="center">
 
-**Made with ❤️ for developers who value privacy and speed**
+**A learning project exploring local LLMs in development workflows**
 
-[⭐ Star us on GitHub](https://github.com/yourusername/codepapi-ai) • [🐛 Report a Bug](https://github.com/yourusername/codepapi-ai/issues) • [💡 Suggest a Feature](https://github.com/yourusername/codepapi-ai/discussions)
+[⭐ Star us on GitHub](https://github.com/codepapi/codepapi-ai) • [🐛 Report a Bug](https://github.com/codepapi/codepapi-ai/issues) • [💡 Suggest a Feature](https://github.com/codepapi/codepapi-ai/discussions)
 
 </div>

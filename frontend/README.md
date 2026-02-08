@@ -1,12 +1,11 @@
 ## Adding More Languages
 
-If you'd like to add new programming languages or framework migration presets to the UI, edit `frontend/src/constants/languages.ts`. The file exports two arrays: `LANGUAGES` (regular languages/options) and `MIGRATIONS` (framework-specific migration presets). Follow these guidelines:
+To add new programming languages to the UI, edit `frontend/src/constants/languages.ts`. The file exports a `LANGUAGES` array with supported languages.
 
 - File location: `frontend/src/constants/languages.ts`
-- Each language entry should include at least `id` and `name`.
-- Migration presets may include `id`, `name`, and any additional metadata your application uses.
+- Each language entry should include `id` and `name`
 
-Example entries:
+Example:
 
 ```ts
 // frontend/src/constants/languages.ts
@@ -16,20 +15,13 @@ export const LANGUAGES = [
 	{ id: 'python', name: 'Python' },
 	// Add more languages here
 ];
-
-export const MIGRATIONS = [
-	{ id: 'react-ts', name: 'React (Class) → React (TS)' },
-	{ id: 'react-vue', name: 'React → Vue' },
-	// Add more migration presets here
-];
 ```
 
 Tips:
 
-- Keep `id` values unique and use kebab-case (e.g. `react-ts`, `node-express`).
-- If you add new migration presets, ensure the backend conversion logic (if any) recognizes the `id` and maps it to the proper prompt behavior.
-- After editing `languages.ts`, the `LanguageSelector` and other UI components will automatically include your new items.
-- You can add additional metadata (for example `editorMode`, `fileExtension`, or `isMigration`) if you want the UI or backend to handle the language differently — just update the consuming code accordingly.
+- Keep `id` values unique and use lowercase (e.g., `javascript`, `python`)
+- After editing `languages.ts`, the `LanguageSelector` component automatically includes your new items
+- The backend `converter.service.ts` handles the translation prompt for each language
 
-If you want help wiring up a more complex metadata format, tell me which fields you'd like and I can update the types and components for you.
+For more complex metadata or customization, check the component prop types in `LanguageSelector.tsx`.
 
