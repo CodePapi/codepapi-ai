@@ -9,7 +9,7 @@
       "dist/**",
       "frontend/src/main.tsx",
       "**/*.test.tsx",
-      "frontend/src/App.test.tsx"
+      "**/*.spec.ts"
     ]
   },
   "formatter": {

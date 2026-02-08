@@ -1,8 +1,8 @@
+import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+import * as request from 'supertest';
 import { ConverterController } from './converter.controller';
 import { ConverterService } from './converter.service';
-import * as request from 'supertest';
-import { INestApplication } from '@nestjs/common';
 
 describe('ConverterController', () => {
   let app: INestApplication;
@@ -36,7 +36,7 @@ describe('ConverterController', () => {
     it('should call convertCode and return the result', async () => {
       const payload = { code: 'console.log(1)', from: 'js', to: 'py' };
       const expectedResponse = { success: true, translatedCode: 'print(1)' };
-      
+
       mockConverterService.convertCode.mockResolvedValue(expectedResponse);
 
       return request(app.getHttpServer())

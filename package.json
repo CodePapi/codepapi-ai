@@ -10,7 +10,7 @@
 		"dev": "docker compose up",
     	"dev:build": "docker compose up --build",
     	"dev:down": "docker compose down",
-		"test:fron": "npm run test --workspace=frontend",
+		"test:fe": "npm run test --workspace=frontend",
    		"test:be": "npm run test --workspace=backend",
 		"biome:format": "biome format --write .",
 		"biome:lint": "biome lint .",

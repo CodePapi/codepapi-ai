@@ -1,7 +1,7 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { ConverterService } from './converter.service';
 import { ChatOllama } from '@langchain/ollama';
 import { InternalServerErrorException } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+import { ConverterService } from './converter.service';
 
 // Mock the LangChain Ollama module
 jest.mock('@langchain/ollama', () => {
@@ -37,13 +37,19 @@ describe('ConverterService', () => {
       const mockResponse = { content: 'print("hello")' };
       mockModel.invoke.mockResolvedValue(mockResponse);
 
-      const result = await service.convertCode('console.log("hello")', 'js', 'python');
+      const result = await service.convertCode(
+        'console.log("hello")',
+        'js',
+        'python',
+      );
 
       expect(result).toEqual({
         success: true,
         translatedCode: 'print("hello")',
       });
-      expect(mockModel.invoke).toHaveBeenCalledWith(expect.stringContaining('Convert the input from js to python'));
+      expect(mockModel.invoke).toHaveBeenCalledWith(
+        expect.stringContaining('Convert the input from js to python'),
+      );
     });
   });
 
@@ -58,13 +64,17 @@ describe('ConverterService', () => {
         success: true,
         reviewContent: '- Use const instead of let',
       });
-      expect(mockModel.invoke).toHaveBeenCalledWith(expect.stringContaining('Review the following javascript code'));
+      expect(mockModel.invoke).toHaveBeenCalledWith(
+        expect.stringContaining('Review the following javascript code'),
+      );
     });
   });
 
   describe('fixBugs', () => {
     it('should return fixed code and explanation', async () => {
-      const mockResponse = { content: 'Fixed Code\nExplanation: removed error' };
+      const mockResponse = {
+        content: 'Fixed Code\nExplanation: removed error',
+      };
       mockModel.invoke.mockResolvedValue(mockResponse);
 
       const result = await service.fixBugs('erroneous code', 'typescript');
