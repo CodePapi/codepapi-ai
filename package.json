@@ -2,10 +2,16 @@
 	"name": "codepapi-ai",
 	"private": true,
 	"version": "1.0.0",
+	"workspaces": [
+		"frontend",
+		"backend"
+	],
 	"scripts": {
 		"dev": "docker compose up",
     	"dev:build": "docker compose up --build",
     	"dev:down": "docker compose down",
+		"test:fe": "npm run test --workspace=frontend",
+   		"test:be": "npm run test --workspace=backend",
 		"biome:format": "biome format --write .",
 		"biome:lint": "biome lint .",
 		"biome:fix": "biome check --apply ."
