@@ -145,9 +145,8 @@ count = count + 1;
 count = count + 1;
 
 // ✅ Good: Complex logic gets a comment block
-// Detect migration presets by checking if language ID includes a dash
-// e.g., "react-ts" or "react-vue" are migrations
-const isMigration = sourceLang.includes('-');
+// Convert language IDs for the AI engine
+const languageId = mapLanguageForAI(sourceLang);
 ```
 
 ### React Components
@@ -356,12 +355,12 @@ npm run test:cov    # With coverage
 
 ## Questions?
 
-- **GitHub Issues:** For bugs and features
-- **GitHub Discussions:** For questions
-- **Email:** [contact@example.com] for sensitive topics
+- **GitHub Issues:** For bugs and feature requests
+- **GitHub Discussions:** For questions and ideas
+- **Email:** [contact@example.com] for other topics
 
 ---
 
 **Thank you for contributing to CodePapi AI!** 🎉
 
-Your efforts help make this tool better for everyone. We appreciate your time and effort!
+Your help improving this hobby project is much appreciated. Whether it's bug fixes, documentation, or new ideas, every contribution matters!
