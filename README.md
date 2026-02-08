@@ -332,19 +332,21 @@ This is an experimental project with real limitations:
 - **Error handling:** Limited error checking and validation
 - **Production use:** Not suitable for mission-critical workflows without thorough testing
 
-## 🚨 Reporting Issues & Security
+## � Support & Feedback
 
-### Bug Reports
-- **Use the bug report template** provided in GitHub Issues
-- **Include reproduction steps** and expected vs. actual behavior
-- **Environment info:** OS, Docker version, any custom configs
-- **No duplicate reports:** Search existing issues first
+- **Report bugs:** Open a GitHub Issue with details and reproduction steps
+- **Ask questions:** Use GitHub Discussions for questions and ideas
+- **Contribute:** See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines
+- **Code of Conduct:** See [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)
 
-### Security Vulnerabilities
-- **Don't open public issues** for security vulnerabilities
-- **Email us privately:** [security@example.com]
-- **Include:** Version, reproduction steps, and potential impact
-- **Responsible disclosure:** Allow 48 hours before public disclosure
+## 🚨 Security
+
+Found a security vulnerability? Please email [security@example.com] with:
+- Description of the issue
+- Steps to reproduce
+- Potential impact
+
+Please allow 48 hours before public disclosure.
 
 See `frontend/README.md` for detailed customization guides.
 
@@ -376,9 +378,9 @@ Distributed under the **MIT License**. See [LICENSE](./LICENSE) for details.
 
 ## 💬 Support
 
-- **Issues:** Report bugs on [GitHub Issues](https://github.com/codepapi/codepapi-ai/issues)
-- **Discussions:** Ask questions in [GitHub Discussions](https://github.com/codepapi/codepapi-ai/discussions)
-- **Docs:** Full documentation in [README files](./frontend/README.md)
+- **Report bugs:** GitHub Issues
+- **Ask questions:** GitHub Discussions  
+- **Documentation:** [CONTRIBUTING.md](./CONTRIBUTING.md), [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)
 
 ---
 
@@ -386,6 +388,6 @@ Distributed under the **MIT License**. See [LICENSE](./LICENSE) for details.
 
 **A learning project exploring local LLMs in development workflows**
 
-[⭐ Star us on GitHub](https://github.com/codepapi/codepapi-ai) • [🐛 Report a Bug](https://github.com/codepapi/codepapi-ai/issues) • [💡 Suggest a Feature](https://github.com/codepapi/codepapi-ai/discussions)
+[⭐ GitHub](https://github.com/codepapi/codepapi-ai) • [🐛 Issues](https://github.com/codepapi/codepapi-ai/issues) • [💬 Discussions](https://github.com/codepapi/codepapi-ai/discussions)
 
 </div>
