@@ -260,54 +260,24 @@ Fixes #189
    feat(converter): add Ruby language support
    ```
 
-2. **Description:** Use the PR template
-   ```markdown
-   ## Description
-   Brief description of what this PR does.
+2. **Description:** Explain what and why
+   - What does this PR do?
+   - Why is this change needed?
+   - Any testing done?
 
-   ## Related Issues
-   Closes #123
-
-   ## Type of Change
-   - [ ] Bug fix
-   - [ ] New feature
-   - [ ] Breaking change
-   - [ ] Documentation update
-
-   ## Testing
-   Steps to test this change:
-   1. Start Docker: `docker-compose up -d`
-   2. Navigate to http://localhost
-   3. Select Ruby as source language
-   4. Paste some Ruby code
-   5. Select target language and click "Run AI"
-
-   ## Screenshots (if applicable)
-   [Before] / [After]
-
-   ## Checklist
-   - [ ] Code passes linting (`npm run biome:lint`)
-   - [ ] Changes are tested
-   - [ ] Documentation is updated
-   - [ ] No console errors in dev tools
-   - [ ] Commits follow guidelines
-   ```
-
-3. **Link issues:** Reference related issues
-4. **No draft PRs:** Only open when ready for review
-5. **Keep it focused:** One feature or fix per PR
+3. **Link issues:** Reference related issues if any
+4. **Keep it focused:** One feature or fix per PR
 
 ### During Review
 
 - Be open to feedback
 - Respond to questions promptly
-- Make requested changes in new commits (don't force push)
-- Use the GitHub "Re-request review" button after updates
-- Keep conversation professional and constructive
+- Make requested changes in new commits
+- Keep conversation professional
 
 ### After Approval
 
-- Ensure CI/CD passes
+- Ensure no conflicts
 - A maintainer will merge your PR
 - Your contribution will be recognized!
 
