@@ -1,9 +1,7 @@
-import { ChatOllama } from '@langchain/ollama';
 import { InternalServerErrorException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConverterService } from './converter.service';
 
-// Mock the LangChain Ollama module
 jest.mock('@langchain/ollama', () => {
   return {
     ChatOllama: jest.fn().mockImplementation(() => {
@@ -24,7 +22,6 @@ describe('ConverterService', () => {
     }).compile();
 
     service = module.get<ConverterService>(ConverterService);
-    // Access the private model to mock its invoke method
     mockModel = (service as any).model;
   });
 

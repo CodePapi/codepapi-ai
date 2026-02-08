@@ -2,7 +2,6 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { LanguageSelector } from './LanguageSelector';
 
-// Mock the constants so our test doesn't depend on the actual language list
 vi.mock('../constants/languages', () => ({
   LANGUAGES: [
     { id: 'javascript', name: 'JavaScript' },
@@ -54,11 +53,10 @@ describe('LanguageSelector Component', () => {
         label="Target"
         value=""
         onChange={mockOnChange}
-        excludeId="javascript" // We shouldn't be able to translate JS to JS
+        excludeId="javascript" 
       />,
     );
 
-    // Check that JavaScript is NOT in the document
     const jsOption = screen.queryByText('JavaScript');
     const pythonOption = screen.getByText('Python');
 
