@@ -107,6 +107,12 @@ Once the models are downloaded and containers are running:
 
 ---
 
+## 🎬 Demo
+
+Check out the project in action: [Watch on YouTube](https://youtu.be/-_i7vOgbwoM)
+
+---
+
 ## 🛠 Tech Stack
 
 | Component | Technology | Purpose |
@@ -166,136 +172,12 @@ Violations will not be tolerated and may result in removal from the project.
 
 ## 🤝 Contributing Guidelines
 
-We welcome contributions! This is a learning/hobby project, so contributions can range from bug fixes and feature ideas to documentation and testing.
+This is a hobby project, so keep it relaxed. Have ideas? Found a bug? Want to improve something?
 
-### Important Notes
+- **See [CONTRIBUTING.md](./CONTRIBUTING.md)** for details on setup and submitting changes
+- **Be nice:** See [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) — just basic respect
 
-- **This is experimental code.** Don't expect production-grade stability
-- **Limitations are intentional** — helps us learn and improve
-- **AI suggestions need review** — this tool augments, not replaces, human developers
-
-### Getting Started
-
-1. **Check existing issues and PRs** to avoid duplicate work
-2. **Fork** the repository and clone it locally
-3. **Create a feature branch** with a descriptive name:
-   ```bash
-   git checkout -b feature/add-kotlin-support
-   # or
-   git checkout -b fix/console-error-on-large-files
-   ```
-
-### Development Setup
-
-```bash
-# Install dependencies
-cd backend && npm install && cd ..
-cd frontend && npm install && cd ..
-
-# Start development environment
-docker-compose up -d
-
-# Or run services individually with npm
-npm run dev  # in both backend/ and frontend/
-```
-
-### Code Standards
-
-#### Style & Formatting
-- **Linter:** We use **Biome** for all TypeScript/JavaScript code
-- **Before every commit, run:**
-  ```bash
-  npx @biomejs/biome check --apply .
-  ```
-- **No manual formatting** — let Biome handle it
-- **Line length:** Maximum 100 characters (Biome enforces this)
-
-#### Git Commits
-- **Commit messages** should be clear and descriptive:
-  ```
-  ✨ feat: add support for Kotlin language
-  🐛 fix: resolve console error on large file uploads
-  📝 docs: update contributing guidelines
-  ♻️ refactor: simplify code translation logic
-  ```
-- **Prefix types:** `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, `perf`
-- **Keep commits atomic** — one logical change per commit
-- **Reference issues:** `Closes #123` in commit body when applicable
-
-#### Pull Requests
-- **Title:** Use the same format as commits (e.g., `feat: add Kotlin support`)
-- **Description:** Explain *why* the change is needed, not just *what*
-- **Linked issues:** Reference any related issues (`Fixes #123`)
-- **Testing:** Include steps to test your changes
-- **Screenshots:** For UI changes, include before/after screenshots
-- **No WIP PRs:** Only open PRs when ready for review
-
-### Code Quality Checklist
-
-Before submitting a PR, ensure:
-
-- ✅ Code passes `npm run biome:lint` without warnings
-- ✅ All tests pass (if applicable)
-- ✅ No console errors or warnings in development
-- ✅ Comments explain *why*, not *what* (code should be self-documenting)
-- ✅ No commented-out code left behind
-- ✅ Variable/function names are descriptive and follow conventions
-- ✅ No hardcoded values (use constants/config instead)
-- ✅ Security: No credentials, secrets, or sensitive data exposed
-- ✅ TypeScript: Avoid `any` types; use proper typing
-- ✅ Documentation: Update README/docs if behavior changes
-
-### Adding Features
-
-#### New Languages or Migration Presets
-1. Update `frontend/src/constants/languages.ts` with new entries
-2. Add corresponding backend logic in `backend/src/converter/converter.service.ts` if needed
-3. Test end-to-end with the UI
-4. Update `frontend/README.md` if adding complex metadata
-
-#### Bug Fixes
-1. Add a test case that reproduces the bug (if possible)
-2. Fix the issue
-3. Verify the test now passes
-4. Check for related issues that might have the same root cause
-
-#### Documentation
-1. Keep docs synchronized with code changes
-2. Add examples for complex features
-3. Update the main README if adding major functionality
-
-### Testing
-
-While formal unit tests are encouraged:
-- **Manual testing** is acceptable for UI changes
-- **Test in Docker** to ensure consistency across environments
-- **Test with the Qwen2.5-Coder model**
-- **Document test steps** in your PR
-
-### Review Process
-
-1. **Automated checks** run on all PRs (Biome linting)
-2. **Code review:** At least one maintainer must approve
-3. **Feedback:** Be open to suggestions and iterate
-4. **Approval:** Once approved, you may merge (or request maintainer to merge)
-5. **Closed PRs:** If inactive for 30 days, may be closed to keep backlog clean
-
-### Areas We Need Help With
-
-- 🌍 **Translations:** UI language support
-- 🧪 **Testing:** Test coverage and edge cases
-- 📚 **Documentation:** Guides, tutorials, examples
-- 🐛 **Bug fixes:** Active issues on GitHub
-- ✨ **Features:** Language support, new modes
-- 🎨 **UI/UX:** Design improvements, accessibility
-
-See the [Issues page](https://github.com/codepapi/codepapi-ai/issues) for tasks labeled `good first issue` and `help wanted`.
-
-### Recognition
-
-- All contributors are listed in `CONTRIBUTORS.md`
-- Significant contributions may be highlighted in release notes
-- Community members can earn roles (Maintainer, Reviewer, etc.)
+No strict requirements, no bureaucracy. Just open a PR or issue and let's build together!
 
 ---
 
@@ -334,10 +216,11 @@ This is an experimental project with real limitations:
 
 ## � Support & Feedback
 
-- **Report bugs:** Open a GitHub Issue with details and reproduction steps
-- **Ask questions:** Use GitHub Discussions for questions and ideas
-- **Contribute:** See [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines
-- **Code of Conduct:** See [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)
+Found a bug? Have a cool idea? Just want to chat about it?
+
+- **Issues:** Report bugs or request features
+- **Discussions:** Ask questions, share ideas, get help
+- **See [CONTRIBUTING.md](./CONTRIBUTING.md)** if you want to contribute code
 
 ## 🚨 Security
 
